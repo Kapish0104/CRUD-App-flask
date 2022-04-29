@@ -1,0 +1,147 @@
+ 
+{% extends 'base.html' %}
+
+{% block body %}
+  <h1 style="text-align: center;text-decoration:underline;">Welcome to My CRUD app</h1>
+  <h3 style="text-align: center;text-decoration:underline;">Made by: Kapish Shewale</h3>
+  <h3 style="text-align: center;text-decoration:underline;">UTA ID: 1001870794</h3>    
+  <h3 style="text-align: center;text-decoration:underline;">Net ID: kxs0794</h3>
+<div class="form-container" >
+            <div class="form-container-csv ny-3" style="text-align: center;border: solid 3px black;width: 45%;padding: 1%;float: left;margin: 1%;">
+        <form action="/upload_csv" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="formFile" class="form-label" style="text-transform: uppercase;
+                text-decoration: underline;">Insert CSV File Below</label>
+                <input class="form-control" type="file" id="csvfile" name="csvfile" >
+              </div>
+              {% if error %}
+              <p style="color:red;"> {{ error }} </p>
+                
+              {% endif %}
+              {% if success %}
+              <p style="color:green;"> {{ success }} </p>
+                
+              {% endif %}
+              {% if allErrors %}
+              <p style="color:red;"> {{ allErrors }} </p>
+                
+              {% endif %}
+              <button type="submit" class="btn btn-primary">Upload CSV</button>
+            </form>
+            </div>
+
+            <div class="form-container-img" style="text-align: center;border: solid 3px black;width: 45%;padding: 1%;float: left;margin: 1%;">
+            <form action="/upload_img" method="POST" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="formFile" class="form-label" style="text-transform: uppercase;
+                text-decoration: underline;">Insert Image File Below</label>
+                <input class="form-control" type="file" id="imgfile" name="imgfile">
+              </div>
+              {% if img_error %}
+              <p style="color:red;"> {{ img_error }} </p>
+                
+              {% endif %}
+              {% if img_success %}
+              <p style="color:green;"> {{ img_success }} </p>
+                
+              {% endif %}
+            <button type="submit" class="btn btn-primary">Upload Image</button>
+          
+        </form> 
+            </div>
+</div>
+
+<div class="search-filter-container">
+  <div class="search-container" style="text-align: center;border: solid 3px black;width: 45%;padding: 1%;float: left;margin: 1%;">
+  <form action="/searchname", method="POST">
+    <div class="mb-3">
+        <p style="text-transform: uppercase; text-decoration: underline;">Search By Name</p>
+    </div>            
+    <div class="mb-3">
+        <label for="title" class="form-label">Enter name</label>
+        <input type="text" name="name" class="form-control" id="name" value="">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  </div>
+  <div class="filter-container" style="text-align: center;border: solid 3px black;width: 45%;padding: 1%;float: left;margin: 1%;">
+    <form action="/filtersalary", method="POST">
+      <div class="mb-3">
+          <p>Search by salary</p>
+      </div>            
+      <div class="mb-3">
+          <label for="title" class="form-label">Enter Salary</label>
+          <input type="text" name="salary" class="form-control" id="salary" value="">
+      </div>
+      <button type="submit" class="btn btn-primary" name = "action" value="greaterthan">Greater than this Salary</button>
+      <button type="submit" class="btn btn-primary" name = "action" value="lessthan">Less than this Salary</button>
+    </form>
+    </div>
+</div>
+
+<div class="new-entry-container" style="text-align: center;">
+  <form action="/addnew", method="POST">
+    <button type="submit" class="btn btn-primary">Add a single new entry</button>
+  </form>
+</div>
+
+<div class="table-container" style="margin: 1%;padding: 1%;">
+      {% if allDetails|length==0 %}
+      <div class="alert alert-dark" role="alert">
+        No Details Found. Add a csv to add details!
+      </div>
+      
+      {% else %}
+      <div>
+        <h2 style="text-align:center;">Entered Details</h2>
+      </div>
+        <table class="table" style="border: 3px black solid;">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">State</th>
+                <th scope="col">Salary</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Room</th>
+                <th scope="col">Contact Number</th>
+                <th scope="col">Picture</th>
+                <th scope="col">Picture Name</th>
+                <th scope="col">Keywords</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for details in allDetails  %}
+                
+              
+              <tr>
+                <td>{{ details.name}}</td>
+                <td>{{ details.state}}</td>
+                <td>{{ details.salary }}</td>
+                <td>{{ details.grade }}</td>
+                <td>{{ details.room }}</td>
+                <td>{{ details.cno }}</td>
+                <td style="width:20%;"><img src={{details.pic}} style="width:100%;"></td>
+                <td>{{details.pic}}</td>
+                <td>{{ details.keywords }}</td>
+                <td>
+                  <a href="/update/{{ details.name }}" type="button" class="btn btn-secondary btn-sm mx-1">Update</button>
+                  <a href="/delete/{{ details.name }}" type="button" class="btn btn-secondary btn-sm mx-1">Delete</button>
+              </td>
+              </tr>
+              {% endfor %}
+  
+            </tbody>
+          </table>
+          {% endif %}
+</div>
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>
+{% endblock body %}

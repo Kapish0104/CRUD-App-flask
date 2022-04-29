@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block body %}
+<h2 style="text-align: center;"> Enter All details</h2>
+<div class="update-form-container" style="padding: 1%;border: 3px solid black;margin: 2%;">
+    {% if error %}
+
+    <p style="color:red">{{error}}</p>    
+    {% endif %}
+    <form action="/addnewentry", method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" id="name" value="">
+        </div>            
+        <div class="mb-3">
+            <label for="title" class="form-label">State</label>
+            <input type="text" name="state" class="form-control" id="state" value="">
+        </div>
+        <label for="title" class="form-label">Salary</label>
+        <input type="text" name="salary" class="form-control" id="salary" value="">
+    
+        <div class="mb-3">
+            <label for="title" class="form-label">Grade</label>
+            <input type="text" name="grade" class="form-control" id="grade" value="">
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Room</label>
+            <input type="text" name="room" class="form-control" id="room" value="">
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Contact Number</label>
+            <input type="text" name="cno" class="form-control" id="cno" value="">
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Picture</label>
+            <input type="text" name="pic" class="form-control" id="pic" value="">
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Keywords</label>
+            <input type="text" name="keywords" class="form-control" id="keywords" value="">
+        </div>
+        <button type="submit" class="btn btn-primary">Insert</button>
+      </form>
+
+    </div>
+{% endblock body %}
